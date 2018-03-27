@@ -5,6 +5,7 @@ import 'element-ui/lib/theme-chalk'
 import Tag from './tag'
 import ImageUpload from './image_upload'
 import Catalog from './catalog'
+import Cascader from './cascader'
 
 function plugin(Vue) {
   if (plugin.installed) return;
@@ -14,6 +15,7 @@ function plugin(Vue) {
   VCA.add('tag', Tag)
   VCA.add('image-upload', ImageUpload)
   VCA.add('catalog-list', Catalog)
+  VCA.add('cascader', Cascader)
 }
 
 export default plugin

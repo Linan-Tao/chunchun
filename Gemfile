@@ -37,7 +37,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-# gem 'paperclip', '~> 5.1'
+gem 'paperclip', '~> 5.1'
 gem 'closure_tree', '~> 6.6'
 gem 'devise', '~> 4.3'
 gem 'select2-rails'
@@ -50,11 +50,13 @@ gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem 'qiniu'
 gem 'filesize'
 gem 'rack-cors', '~> 0.4.1'
+gem 'ckeditor'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
+  gem 'pry-rails'
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
 end

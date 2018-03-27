@@ -7,10 +7,11 @@ zh-CN:
       product:
         name: 名称
         price: 价格
-        images: 图片
+        images: 产品图片
         description: 产品简介
         content: 产品详情
         tag: 产品标签
+        catalog: 产品分类
     errors:
       models:
         product: 
