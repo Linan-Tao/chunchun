@@ -1,0 +1,13 @@
+---
+zh-CN:
+  activerecord:
+    models:
+      catalog: Catalog
+    attributes:
+      catalog:
+        name: Name
+    errors:
+      models:
+        catalog: 
+  helpers:
+    catalog: 

@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Homes</h1>
+<div rel="vca" role="tag" name="tags" value="标签一,标签二,标签三" type="success" closable disable-transitions hit size="medium"></div>
+<span rel="vca" role="image-upload"
+        name="images[]"
+        token-url="http://localhost:3000/get-upload-token"
+        upload-url="//up-z2.qiniup.com"
+        domain="<%= ENV['QINIU_DOMAIN'] %>"
+        multiple
+        list-type="picture-card"
+        limit="3" 
+        tip="最多上传3个图片"></span>

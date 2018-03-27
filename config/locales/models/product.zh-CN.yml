@@ -1,0 +1,18 @@
+---
+zh-CN:
+  activerecord:
+    models:
+      product: 产品
+    attributes:
+      product:
+        name: 名称
+        price: 价格
+        images: 图片
+        description: 产品简介
+        content: 产品详情
+        tag: 产品标签
+    errors:
+      models:
+        product: 
+  helpers:
+    product: 

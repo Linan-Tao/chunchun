@@ -1,0 +1,19 @@
+---
+zh-CN:
+  activerecord:
+    models:
+      product_dimension: Product dimension
+    attributes:
+      product_dimension:
+        product: Product
+        name: Name
+        value: Value
+        price: Price
+        stock: Stock
+        image: Image
+        features: Features
+    errors:
+      models:
+        product_dimension: 
+  helpers:
+    product_dimension: 
