@@ -1,0 +1,16 @@
+---
+zh-CN:
+  activerecord:
+    models:
+      order_product: Order product
+    attributes:
+      order_product:
+        order: Order
+        product: Product
+        amount: Amount
+        price: Price
+    errors:
+      models:
+        order_product: 
+  helpers:
+    order_product: 

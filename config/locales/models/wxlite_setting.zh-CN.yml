@@ -1,0 +1,14 @@
+---
+zh-CN:
+  activerecord:
+    models:
+      wxlite_setting: 小程序设置
+    attributes:
+      wxlite_setting:
+        banners: Banner图
+        delivery_fee: 运费
+    errors:
+      models:
+        wxlite_setting: 
+  helpers:
+    wxlite_setting: 

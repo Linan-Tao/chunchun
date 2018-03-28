@@ -1,0 +1,20 @@
+---
+zh-CN:
+  wxlite_settings:
+    index:
+      title: Wxlite settings
+    show:
+      title: Wxlite setting
+    edit:
+      title: Editing Wxlite setting
+    new:
+      title: New Wxlite setting
+  flash:
+    wxlite_settings:
+      create:
+        notice: "%{resource_name} was successfully created."
+      update:
+        notice: "%{resource_name} was successfully updated."
+      destroy:
+        notice: "%{resource_name} was successfully deleted."
+        alert: "%{resource_name} could not be deleted."

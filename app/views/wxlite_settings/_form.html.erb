@@ -1,0 +1,13 @@
+
+<%= simple_form_for(@wxlite_setting) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :banners %>
+    <%= f.input :delivery_fee %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

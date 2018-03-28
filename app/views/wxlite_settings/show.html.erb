@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Banners:</strong>
+  <%= @wxlite_setting.banners %>
+</p>
+
+<p>
+  <strong>Delivery fee:</strong>
+  <%= @wxlite_setting.delivery_fee %>
+</p>
+
+<%= link_to 'Edit', edit_wxlite_setting_path(@wxlite_setting) %> |
+<%= link_to 'Back', wxlite_settings_path %>

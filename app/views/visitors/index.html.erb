@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<h3>会员管理</h3>
+<div class="row">
+<% @visitors.each do |visitor| %>
+  <div class="col-md-2">
+    <a class="card" href="<%= visitor_path(visitor) %>">
+      <h5 class="card-header"><%= visitor.nickname%></h5>
+      <img style="height: 80px; width: 100%; display: block;" src="<%= visitor.headshot %>" alt="Card image">
+    </a>
+  </div>
+  <% end %>
+</div>
+
+<br>

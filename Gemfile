@@ -51,6 +51,18 @@ gem 'qiniu'
 gem 'filesize'
 gem 'rack-cors', '~> 0.4.1'
 gem 'ckeditor'
+gem 'grape', '~> 0.19.1'
+gem 'grape-route-helpers', '~> 2.0'
+gem 'grape-entity', '~> 0.6.1'
+gem 'grape-swagger'
+gem 'grape-swagger-entity', '~> 0.2.0'
+gem 'grape-swagger-rails'#, group: [:development]
+gem 'kaminari', '~> 1.0', '>= 1.0.1'
+gem 'kaminari-bootstrap', '~> 3.0', '>= 3.0.1'
+gem 'kaminari-i18n', '~> 0.4.0'
+gem 'faraday', '~> 0.13.1'
+gem 'jwt', '~> 2.1'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

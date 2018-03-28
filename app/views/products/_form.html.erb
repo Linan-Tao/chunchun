@@ -21,13 +21,23 @@
       <%= form.text_field :price, id: :product_price, class: 'form-control' %>
     </div>
     <div class="col-md-4">
-      <%= form.label :catalog %>
-      <div rel="vca" role="cascader" name="product[catalog_id]" value="<%= @product.catalog_id %>"  props='{"label": "name", "value": "id", "children": "children_data"}' url="http://localhost:3000/catalogs.json"></div>
+      <%= form.label :sell_price %>
+      <%= form.text_field :sell_price, id: :product_sell_price, class: 'form-control' %>
     </div>
   </div>
-  <div class="row mt-2 ml-1">
-    <%= form.label :tag %>
-    <div rel="vca" role="tag" name="product[tag_list]" value="<%= @product.tag_list %>" type="success" closable disable-transitions hit size="medium"></div>
+  <div class="row mt-2">
+    <div class="col-md-4">
+      <%= form.label :stock %>
+      <%= form.text_field :stock, id: :product_stock, class: 'form-control' %>
+    </div> 
+    <div class="col-md-4">
+      <%= form.label :catalog %>
+      <div rel="vca" role="cascader" name="product[catalog_id]" value="<%= @product.catalog_id %>"  props='{"label": "name", "value": "id", "children": "children_data"}' url="http://localhost:3000/catalogs.json"></div>
+    </div> 
+    <div class="col-md-4">
+      <%= form.label :tag %>
+      <div rel="vca" role="tag" name="product[tag_list]" value="<%= @product.tag_list %>" type="success" closable disable-transitions hit size="medium"></div>
+    </div>
   </div>
   <div class="row mt-3 ml-1">
     <%= form.label :images %>
@@ -52,6 +62,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit class: 'btn btn-lg btn-primary btn-block' %>
+    <%= form.submit class: 'btn btn-lg btn-success btn-block' %>
   </div>
 <% end %>

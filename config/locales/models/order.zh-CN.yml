@@ -1,0 +1,17 @@
+---
+zh-CN:
+  activerecord:
+    models:
+      order: Order
+    attributes:
+      order:
+        visitor: Visitor
+        code: Code
+        price: Price
+        status: Status
+        features: Features
+    errors:
+      models:
+        order: 
+  helpers:
+    order: 

@@ -1,0 +1,2 @@
+module WxliteSettingsHelper
+end

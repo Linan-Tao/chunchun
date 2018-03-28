@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180327135219) do
+ActiveRecord::Schema.define(version: 20180328111249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,28 @@ ActiveRecord::Schema.define(version: 20180327135219) do
     t.index ["type"], name: "index_ckeditor_assets_on_type"
   end
 
+  create_table "order_products", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "product_id"
+    t.integer "amount"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_products_on_order_id"
+    t.index ["product_id"], name: "index_order_products_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "visitor_id"
+    t.string "code"
+    t.integer "price"
+    t.string "status"
+    t.jsonb "features"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["visitor_id"], name: "index_orders_on_visitor_id"
+  end
+
   create_table "product_dimensions", force: :cascade do |t|
     t.bigint "product_id"
     t.string "name"
@@ -69,6 +91,17 @@ ActiveRecord::Schema.define(version: 20180327135219) do
     t.datetime "updated_at", null: false
     t.bigint "catalog_id"
     t.index ["catalog_id"], name: "index_products_on_catalog_id"
+  end
+
+  create_table "shopping_carts", force: :cascade do |t|
+    t.bigint "product_id"
+    t.integer "price"
+    t.integer "amount"
+    t.bigint "visitor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_shopping_carts_on_product_id"
+    t.index ["visitor_id"], name: "index_shopping_carts_on_visitor_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -113,6 +146,26 @@ ActiveRecord::Schema.define(version: 20180327135219) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "visitors", force: :cascade do |t|
+    t.string "uid"
+    t.string "nickname"
+    t.string "headshot"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "wxlite_settings", force: :cascade do |t|
+    t.string "banners", array: true
+    t.integer "delivery_fee"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "order_products", "orders"
+  add_foreign_key "order_products", "products"
+  add_foreign_key "orders", "visitors"
   add_foreign_key "product_dimensions", "products"
   add_foreign_key "products", "catalogs"
+  add_foreign_key "shopping_carts", "products"
+  add_foreign_key "shopping_carts", "visitors"
 end

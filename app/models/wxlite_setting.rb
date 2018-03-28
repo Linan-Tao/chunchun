@@ -1,0 +1,2 @@
+class WxliteSetting < ApplicationRecord
+end

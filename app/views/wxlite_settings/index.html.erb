@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h3>小程序设置</h3>
+<%= form_with(model: @website_setting, local: true) do |form| %>
+  <% if @website_setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@website_setting.errors.count, "error") %> prohibited this website_setting from being saved:</h2>
+
+      <ul>
+      <% @website_setting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row">
+    <%= form.label :delivery_fee %>
+    <%= form.text_field :delivery_fee, id: :website_setting_delivery_fee, class: 'form-control' %>
+  </div>
+  <div class="row mt-3 ml-1">
+    <%= form.label :banners %>
+    <p rel="vca" role="image-upload"
+        name="wxlite_setting[banners][]"
+        token-url="http://localhost:3000/get-upload-token"
+        upload-url="//up-z2.qiniup.com"
+        domain="<%= ENV['QINIU_DOMAIN'] %>"
+        file-list="<%= @website_setting.banners.join(',') if @website_setting.banners %>"
+        multiple
+        list-type="picture-card"
+        limit="3" 
+        tip="最多上传3个图片"></p>
+  </div>
+
+  <div class="actions">
+    <%= form.submit '更新', class: 'btn btn-lg btn-success btn-block' %>
+  </div>
+<% end %>

@@ -1,0 +1,15 @@
+---
+zh-CN:
+  activerecord:
+    models:
+      visitor: Visitor
+    attributes:
+      visitor:
+        uid: Uid
+        nickname: Nickname
+        headshot: Headshot
+    errors:
+      models:
+        visitor: 
+  helpers:
+    visitor: 
