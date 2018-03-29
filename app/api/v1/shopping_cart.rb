@@ -62,12 +62,14 @@ module V1
       params do
         use :pagination
         use :sort, fields: [:id, :created_at, :updated_at]
+        optional :ids, type: Array[Integer], coerce_with: ->(val) { val.split(/,|，/).map(&:to_i) }, desc: '购物车ID列表'
       end
       get do
         authenticate!
         shopping_carts = current_visitor.shopping_carts
+        shopping_carts = shopping_carts.where(id: params[:ids]) if params[:ids]
         shopping_carts = paginate_collection(sort_collection(shopping_carts), params)
-        wrap_collection shopping_carts, Entities::ShoppingCart, includes: [:product, :site]
+        wrap_collection shopping_carts, Entities::ShoppingCart, includes: [:product]
       end
 
     end # end of resources

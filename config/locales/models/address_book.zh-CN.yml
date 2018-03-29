@@ -1,0 +1,20 @@
+---
+zh-CN:
+  activerecord:
+    models:
+      address_book: Address book
+    attributes:
+      address_book:
+        visitor: Visitor
+        name: Name
+        mobile: Mobile
+        province: Province
+        city: City
+        district: District
+        detail_address: Detail address
+        features: Features
+    errors:
+      models:
+        address_book: 
+  helpers:
+    address_book: 
