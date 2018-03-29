@@ -23,7 +23,7 @@ DATABASE_SHCAME: basic
 DATABASE_USERNAME: postgres
 DATABASE_PASSWORD: "123456"
 
-SITE_HOST: 'http://localhost:3000'
+SITE_HOST: 'https://wx.jjerp.cn'
 
 
 development:
