@@ -82,6 +82,6 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV['DATABASE_SHCAME'] %>
-  username: <%= ENV['DATABASE_USERNAME']%>
-  password: <%= ENV['DATABASE_PASSWORD']%>
+  database: basic_production
+  username: basic
+  password: 123abc..
