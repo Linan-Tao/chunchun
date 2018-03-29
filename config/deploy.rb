@@ -10,6 +10,10 @@ set :repo_url, "git@github.com:Linan-Tao/chunchun.git"
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/var/www/chunchun"
 
+# 设置远程仓库缓存，每次部署时使用 git pull 而不是 git clone
+set :repository_cache, 'git_cache'
+set :deploy_via, :remote_cache
+
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
