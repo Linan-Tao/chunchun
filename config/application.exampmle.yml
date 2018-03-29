@@ -1,0 +1,26 @@
+# Add configuration values here, as shown below.
+#
+# pusher_app_id: "2954"
+# pusher_key: 7381a978f7dd7f9a1117
+# pusher_secret: abdc3b896a0ffb85d373
+# stripe_api_key: sk_test_2J0l093xOyW72XUYJHE4Dv2r
+# stripe_publishable_key: pk_test_ro9jV5SNwGb1yYlQfzG17LHK
+#
+# production:
+#   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
+#   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
+QINIU_ACCESS_KEY: ooGfxfPHa-VAJg6FF6WoixcLHNygDSvBRfArIPOm
+QINIU_ACCESS_SECRET: sOXzcj5lHLkL79iBQEDd0MZANllUizy0TE3pUYCS
+QINIU_BUCKET: basic
+QINIU_DOMAIN: p64xi7w31.bkt.clouddn.com
+
+SECRET_KEY_BASE: 7e87f04b602540188357f8b579701d4cdb8a02f2ebe6624af13511083baf39e02306911690a6a828601e81c0d8efde5fc952d8a0c496aedac1af76cc58c11c29
+WECHAT_LITE_APPID: wx74b81eb7ea7f8ae7
+WECHAT_LITE_SECRET: eaeadb5e6ca8a8aa5248fa5b0ef80f12
+
+DB_HOST: localhost
+DB_DATABASE: basic
+DB_USERNAME: postgres
+DB_PASSWORD: 123456
+
+SITE_HOST: 'http://localhost:3000'

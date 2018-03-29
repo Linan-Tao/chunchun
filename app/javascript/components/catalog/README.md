@@ -1,3 +1,5 @@
+## 开发前执行 `rake config:copy` 将 `application.example.yml` 覆盖到 `application.yml`
+
 ## 横向展示目录组件
 ### 1. 需要
 
