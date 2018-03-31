@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all.order("updated_at DESC").page(params[:page])
+    @products = Product.all.order('updated_at DESC').page(params[:page])
   end
 
   # GET /products/1
@@ -61,6 +61,7 @@ class ProductsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
@@ -68,6 +69,7 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :price, :images, :description, :stock, :sell_price, :content, :tag_list, :catalog_id, :images => [])
+      params.require(:product).permit(:name, :price, :images, :description, :stock, :sell_price, :content, :tag_list, :catalog_id,
+                                      images: [])
     end
 end

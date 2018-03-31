@@ -12,10 +12,10 @@ module Basic
     config.load_defaults 5.1
     I18n.config.enforce_available_locales = false
 
-    config.i18n.available_locales = ["zh-CN"]
-    config.i18n.default_locale = "zh-CN".to_sym
+    config.i18n.available_locales = ['zh-CN']
+    config.i18n.default_locale = 'zh-CN'.to_sym
     config.before_configuration do
-      I18n.locale = "zh-CN".to_sym
+      I18n.locale = 'zh-CN'.to_sym
       I18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '**', '*.{rb,yml}')]
       I18n.reload!
     end
@@ -23,10 +23,10 @@ module Basic
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resource '/api/*', :headers => :any, :methods => [:get, :post, :options, :put, :update, :delete]
+        resource '/api/*', headers: :any, methods: [:get, :post, :options, :put, :update, :delete]
       end
     end
-    config.autoload_paths += %w(#{config.root}/app/models/ckeditor)
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', 'ckeditor')]
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

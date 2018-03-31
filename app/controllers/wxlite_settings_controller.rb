@@ -62,6 +62,7 @@ class WxliteSettingsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_wxlite_setting
       @wxlite_setting = WxliteSetting.find(params[:id])
@@ -69,6 +70,6 @@ class WxliteSettingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def wxlite_setting_params
-      params.require(:wxlite_setting).permit(:delivery_fee, :banners => [])
+      params.require(:wxlite_setting).permit(:delivery_fee, banners: [])
     end
 end

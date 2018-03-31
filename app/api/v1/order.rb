@@ -2,8 +2,7 @@ module V1
   class Order < Base
     helpers SharedParams
     resources :orders do
-
-      desc "订单列表" do
+      desc '订单列表' do
         success Entities::OrderSimple
       end
       params do
@@ -19,7 +18,7 @@ module V1
         wrap_collection orders, Entities::OrderSimple
       end
 
-      desc "订单详细" do
+      desc '订单详细' do
         success Entities::Order
       end
       params do
@@ -31,7 +30,7 @@ module V1
         present order, with: Entities::Order
       end
 
-      desc "订单创建" do
+      desc '订单创建' do
         success Entities::Order
       end
       params do
@@ -81,15 +80,15 @@ module V1
         query_parts['sign'] = get_signature(query_parts)
         query_parts = query_parts.to_json
         xml_query = ActiveSupport::JSON.decode(query_parts).to_xml(root: 'xml', dasherize: false)
-        resp = Faraday.post("https://api.mch.weixin.qq.com/pay/unifiedorder", xml_query)
+        resp = Faraday.post('https://api.mch.weixin.qq.com/pay/unifiedorder', xml_query)
         # query_str = encode_parameters(query_parts)
         # client = Faraday.new("https://api.mch.weixin.qq.com/pay/unifiedorder")
         # j = JSON.parse(resp.body)
         prepay = Hash.from_xml(resp.body)
-        
-        present prepay["xml"]
+
+        present prepay['xml']
       end
-      
+
       desc '创建订单的charge'
       params do
         requires :id, type: Integer, desc: '订单ID'
@@ -115,7 +114,6 @@ module V1
           error! '支付失败！'
         end
       end
-
     end
   end
 end

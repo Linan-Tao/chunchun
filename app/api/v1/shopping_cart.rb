@@ -2,8 +2,7 @@ module V1
   class ShoppingCart < Base
     helpers SharedParams
     resources :shopping_carts do
-
-      desc "添加产品到购物车" do
+      desc '添加产品到购物车' do
         success Entities::ShoppingCart
       end
       params do
@@ -25,7 +24,7 @@ module V1
         present shopping_cart, with: Entities::ShoppingCart
       end
 
-      desc "修改购物车产品" do
+      desc '修改购物车产品' do
         success Entities::ShoppingCart
       end
       params do
@@ -39,12 +38,12 @@ module V1
         shopping_cart = current_visitor.shopping_carts.find_by(product_id: params[:product_id])
         error! '没有找到购物车记录' unless shopping_cart
         shopping_cart.price = product.sell_price * params[:amount]
-        shopping_cart.amount =  params[:amount]
+        shopping_cart.amount = params[:amount]
         error! shopping_cart.errors unless shopping_cart.save
         present shopping_cart, with: Entities::ShoppingCart
       end
 
-      desc "从购物车中删除产品" do
+      desc '从购物车中删除产品' do
         success Entities::ShoppingCart
       end
       params do
@@ -71,7 +70,7 @@ module V1
         shopping_carts = paginate_collection(sort_collection(shopping_carts), params)
         wrap_collection shopping_carts, Entities::ShoppingCart, includes: [:product]
       end
-
-    end # end of resources
+    end
+    # end of resources
   end
 end

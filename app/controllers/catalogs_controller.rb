@@ -1,6 +1,6 @@
 class CatalogsController < ApplicationController
   before_action :set_admin_catalog, only: [:edit, :update, :destroy, :tags]
-  skip_before_action :verify_authenticity_token  
+  skip_before_action :verify_authenticity_token
   # GET /admin/catalogs
   def index
     respond_to do |format|
@@ -61,6 +61,7 @@ class CatalogsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_catalog
       @admin_catalog = catalog_model.find(params[:id])
@@ -72,11 +73,10 @@ class CatalogsController < ApplicationController
     end
 
     def catalog_json_data(catalogs)
-      catalogs.as_json(only: [:id, :name],  methods: [:children_data])
+      catalogs.as_json(only: [:id, :name], methods: [:children_data])
     end
 
     def catalog_model
       Catalog
     end
-
 end

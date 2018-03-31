@@ -2,8 +2,7 @@ module V1
   class AddressBook < Base
     helpers SharedParams
     resources :address_books do
-
-      desc "创建地址簿" do
+      desc '创建地址簿' do
         success Entities::AddressBook
       end
       params do
@@ -27,7 +26,7 @@ module V1
         present address_book, with: Entities::AddressBook
       end
 
-      desc "修改地址簿" do
+      desc '修改地址簿' do
         success Entities::AddressBook
       end
       params do
@@ -72,7 +71,7 @@ module V1
         address_book = ::AddressBook.find(params[:id]).destroy
         present address_book, with: Entities::AddressBook
       end
-
-    end # end of resources
+    end
+    # end of resources
   end
 end

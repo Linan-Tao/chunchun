@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :catalogs
   devise_for :users
   root 'home#index'
-  post 'get-upload-token', to: 'home#get_upload_token'
+  post 'get-upload-token', to: 'home#upload_token'
   mount RootAPI => '/'
   mount GrapeSwaggerRails::Engine => '/chunchun-docs'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -1,11 +1,17 @@
 class V1::Auth < V1::Base
   namespace :auth do
-    desc "通过code换取用户信息"
+    desc '通过code换取用户信息'
     params do
       requires :code
     end
     get :login do
-      client = Faraday.new("https://api.weixin.qq.com/sns/jscode2session?appid=#{ENV['WECHAT_LITE_APPID']}&secret=#{ENV['WECHAT_LITE_SECRET']}&js_code=#{params[:code]}&grant_type=authorization_code")
+      query = {}
+      query[:appid] = ENV['WECHAT_LITE_APPID']
+      query[:secret] = ENV['WECHAT_LITE_SECRET']
+      query[:js_code] = params[:code]
+      query[:grant_type] = ENV['authorization_code']
+
+      client = Faraday.new("https://api.weixin.qq.com/sns/jscode2session?#{query.to_query}")
       resp = client.get
       j = JSON.parse(resp.body)
       if j['openid'] && j['session_key']
@@ -16,7 +22,7 @@ class V1::Auth < V1::Base
       end
     end
 
-    desc "更新用户信息"
+    desc '更新用户信息'
     params do
       requires :userInfo, type: Hash
       requires :rawData

@@ -4,9 +4,13 @@ module ApiHelpers
   def current_visitor
     if @current_visitor.nil?
       token_str = headers['Authorization']
-      return @current_visitor=false if token_str.blank?
+      return @current_visitor = false if token_str.blank?
       token_str = token_str.sub(/^Bearer /, '')
-      data = JWT.decode(token_str, ENV['SECRET_KEY_BASE'], true, { :algorithm => 'HS256' })[0] rescue nil
+      data = begin
+               JWT.decode(token_str, ENV['SECRET_KEY_BASE'], true, algorithm: 'HS256')[0]
+             rescue StandardError
+               nil
+             end
       if data
         @current_visitor = Visitor.find_by(uid: data['openid'])
         @current_visitor.session_key = data['session_key']
@@ -50,7 +54,7 @@ module ApiHelpers
   end
 
   # 生产分页数据的JSON
-  def wrap_collection(collection, with_entity, options={})
+  def wrap_collection(collection, with_entity, options = {})
     present meta: {
       current_page: collection.current_page,
       total_pages: collection.total_pages,

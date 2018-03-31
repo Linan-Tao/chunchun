@@ -4,12 +4,11 @@ class Catalog < ApplicationRecord
     if parent
       "#{parent.full_name}/#{name}"
     else
-      "#{name}"
+      name.to_s
     end
   end
 
   def children_data
     children.as_json(only: [:id, :name], methods: [:children_data])
   end
-
 end

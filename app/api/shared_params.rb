@@ -14,7 +14,7 @@ module SharedParams
 
   # 排序参数
   params :sort do |options|
-    fail "missing :fields" unless options.include?(:fields)
+    raise 'missing :fields' unless options.include?(:fields)
     optional :_sort,
              type: Params::Sort,
              coerce_with: ->(c) { Params::Sort.new(fields: options[:fields], default: options[:default], value: c) },

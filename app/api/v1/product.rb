@@ -2,8 +2,7 @@ module V1
   class Product < Base
     helpers SharedParams
     resources :products do
-
-      desc "产品列表" do
+      desc '产品列表' do
         success Entities::ProductSimple
       end
       params do
@@ -20,14 +19,12 @@ module V1
         else
           products = ::Product.all
         end
-        if params[:keywords]
-          products = products.where("name ILIKE :key", { key: "%#{params[:keywords]}%" })
-        end
+        products = products.where('name ILIKE :key', key: "%#{params[:keywords]}%") if params[:keywords]
         products = paginate_collection(products, params)
         wrap_collection products, Entities::ProductSimple
       end
 
-      desc "产品详细" do
+      desc '产品详细' do
         success Entities::Product
       end
       params do
@@ -38,7 +35,7 @@ module V1
         product = ::Product.find(params[:id])
         present product, with: Entities::Product
       end
-
-    end # end of resources
+    end
+    # end of resources
   end
 end

@@ -11,18 +11,18 @@ module Params
       @default = default
       @value = parse(value)
     end
+
     def parse(value)
       parsed_value = []
       value.to_s.split(',').each do |field_str|
         field, direction = field_str.split(' ')
         field.strip! if field
         direction.strip! if direction
-        if fields.include?(field)
-          parsed_value << "#{field} #{parse_direction(direction)}"
-        end
+        parsed_value << "#{field} #{parse_direction(direction)}" if fields.include?(field)
       end
       @value = parsed_value.empty? ? default : parsed_value.join(', ')
     end
+
     def parse_direction(str)
       str.to_s.downcase.strip == 'desc' ? 'desc' : 'asc'
     end

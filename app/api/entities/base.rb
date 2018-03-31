@@ -1,9 +1,6 @@
 module Entities
   class Base < Grape::Entity
-
-    format_with(:timestamp) do |time|
-      time.to_i
-    end
+    format_with(:timestamp, &:to_i)
 
     def self.expose_id
       expose :id, documentation: { type: Integer }
@@ -18,9 +15,9 @@ module Entities
     end
 
     def self.collection(meta: true)
-      klass_name = "#{self.name.split('::').last}Collection"
+      klass_name = "#{name.split('::').last}Collection"
       klass_name = "#{klass_name}WithoutMeta" unless meta
-      return self.const_get(klass_name) if self.const_defined? klass_name
+      return const_get(klass_name) if const_defined? klass_name
       klass = Class.new(Grape::Entity)
 
       code = <<-RUBY.strip_heredoc
@@ -48,7 +45,7 @@ module Entities
         end
       RUBY
       klass.instance_eval code
-      self.const_set klass_name, klass
+      const_set klass_name, klass
       klass
     end
   end
