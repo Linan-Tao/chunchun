@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: order_products
+#
+#  id         :integer          not null, primary key
+#  order_id   :integer
+#  product_id :integer
+#  amount     :integer
+#  price      :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'test_helper'
 
 class OrderProductTest < ActiveSupport::TestCase
