@@ -63,7 +63,8 @@ module V1
             order.delivery_address = address_book.detail_address
           end
         end
-        binding.pry
+        # binding.pry
+        order.code = Time.now.to_i.to_s
         error! order.errors unless order.save && shopping_carts.destroy_all
         query_parts = {
           'appid' => ENV['WECHAT_LITE_APPID'],
@@ -73,15 +74,20 @@ module V1
           'out_trade_no' => order.code,
           'total_fee' => order.price,
           'spbill_create_ip' => '127.0.0.1',
-          'trade_type' => 'JSAPI'
+          'trade_type' => 'JSAPI',
+          'notify_url' => ENV['SITE_HOST'],
+          'openid' => current_visitor.uid
         }
         query_parts['sign'] = get_signature(query_parts)
+        query_parts = query_parts.to_json
+        xml_query = ActiveSupport::JSON.decode(query_parts).to_xml(root: 'xml', dasherize: false)
+        resp = Faraday.post("https://api.mch.weixin.qq.com/pay/unifiedorder", xml_query)
         # query_str = encode_parameters(query_parts)
         # client = Faraday.new("https://api.mch.weixin.qq.com/pay/unifiedorder")
-        resp = Faraday.post("https://api.mch.weixin.qq.com/pay/unifiedorder", query_parts)
-        j = JSON.parse(resp.body)
-
-        present order, with: Entities::Order
+        # j = JSON.parse(resp.body)
+        prepay = Hash.from_xml(resp.body)
+        
+        present prepay["xml"]
       end
       
       desc '创建订单的charge'
