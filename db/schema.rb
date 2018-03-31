@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180328111249) do
+ActiveRecord::Schema.define(version: 20180329084306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "address_books", force: :cascade do |t|
+    t.bigint "visitor_id"
+    t.string "name"
+    t.string "mobile"
+    t.string "province"
+    t.string "city"
+    t.string "district"
+    t.string "detail_address"
+    t.jsonb "features"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["visitor_id"], name: "index_address_books_on_visitor_id"
+  end
 
   create_table "catalog_hierarchies", id: false, force: :cascade do |t|
     t.integer "ancestor_id", null: false
@@ -161,6 +175,7 @@ ActiveRecord::Schema.define(version: 20180328111249) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "address_books", "visitors"
   add_foreign_key "order_products", "orders"
   add_foreign_key "order_products", "products"
   add_foreign_key "orders", "visitors"

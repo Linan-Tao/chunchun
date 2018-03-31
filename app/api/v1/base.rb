@@ -5,5 +5,6 @@ module V1
     mount V1::Catalog
     mount V1::Auth
     mount V1::ShoppingCart
+    mount V1::AddressBook
   end
 end

@@ -8,7 +8,7 @@
   <% @products.each do |product| %>
   <div class="col-md-3">
     <div class="card">
-      <h3 class="card-header"><%= product.name%></h3>
+      <p class="card-header"><%= product.name%></p>
       <div class="card-body">
         <div class="row">
           <div class="col-6 text-left">
@@ -19,7 +19,7 @@
           </div>
         </div>
       </div>
-      <img style="height: 100px; width: 100%; display: block;" src="<%= product.first_image %>" alt="Card image">
+      <img style="height: 150px; width: 100%; display: block;" src="<%= product.first_image %>" alt="Card image">
       <div class="card-body">
         <p class="card-text"><%= product.description.truncate(30) %></p>
         <% product.tags.each do |tag|%>
@@ -27,9 +27,9 @@
         <% end%>
       </div>
       <div class="card-body">
-        <%= link_to '查看', product_path(product), class: 'btn btn-success' %>
-        <%= link_to '编辑', edit_product_path(product), class: 'btn btn-warning' %>
-        <%= link_to '删除', product, method: :delete, data: { confirm: '确定要删除吗?' }, class: 'btn btn-danger' %>
+        <%= link_to '查看', product_path(product), class: 'btn btn-sm btn-success' %>
+        <%= link_to '编辑', edit_product_path(product), class: 'btn btn-sm btn-warning' %>
+        <%= link_to '删除', product, method: :delete, data: { confirm: '确定要删除吗?' }, class: 'btn btn-sm btn-danger' %>
       </div>
     </div>
   </div>
