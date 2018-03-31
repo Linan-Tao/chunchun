@@ -1,3 +1,5 @@
+require 'digest/md5'
+require 'cgi'
 module ApiHelpers
   def current_visitor
     if @current_visitor.nil?
@@ -25,6 +27,40 @@ module ApiHelpers
     else
       super
     end
+  end
+
+  def get_signature(options)
+    options = options.symbolize_keys
+    # options[:timestamp] = Time.now.to_i
+    str = options.keys.sort.reduce("") do |s, k|
+      s = "#{s}&" unless s.empty?
+      "#{s}#{k}=#{CGI.escape(options[k].to_s)}"
+    end
+    Digest::MD5.hexdigest("#{str}&key=#{ENV['WECHAT_MCH_SECRET']}").upcase
+  end
+
+  def encode_parameters(params)
+    flatten_params(params).
+      map { |k,v| "#{url_encode(k)}=#{url_encode(v)}" }.join('&')
+  end
+
+  def url_encode(key)
+    CGI.escape(key.to_s).gsub('%5B', '[').gsub('%5D', ']')
+  end
+
+  def flatten_params(params, parent_key=nil)
+    result = []
+    params.each do |key, value|
+      calculated_key = parent_key ? "#{parent_key}[#{key}]" : "#{key}"
+      if value.is_a?(Hash)
+        result += flatten_params(value, calculated_key)
+      elsif value.is_a?(Array)
+        result += flatten_params_array(value, calculated_key)
+      else
+        result << [calculated_key, value]
+      end
+    end
+    result
   end
 
   # 验证用户

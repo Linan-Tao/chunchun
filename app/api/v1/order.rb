@@ -40,7 +40,7 @@ module V1
       end
       post do
         authenticate!
-        order = current_user.orders.new
+        order = current_visitor.orders.new
         shopping_carts = ::ShoppingCart.where(id: params[:shopping_cart_ids])
         error! '购物清单为空！' if shopping_carts.empty?
         shopping_carts.each do |sc|
@@ -51,19 +51,36 @@ module V1
         #   self.price ||= product.price * amount
         # end
         order.price = order.order_products.map(&:price).sum
-        if Settings.project.imolin?
-          order.price = order.price + site.delivery_fee.to_f
-          order.delivery_fee = site.delivery_fee
-        end
+        # if Settings.project.imolin?
+        #   order.price = order.price + site.delivery_fee.to_f
+        #   order.delivery_fee = site.delivery_fee
+        # end
         if params[:address_book_id]
-          address_book = current_user.address_books.find_by(id: params[:address_book_id])
+          address_book = current_visitor.address_books.find_by(id: params[:address_book_id])
           unless address_book.blank?
             order.delivery_username = address_book.name
-            order.delivery_phone = address_book.mobile_phone
-            order.delivery_address = address_book.full_address
+            order.delivery_phone = address_book.mobile
+            order.delivery_address = address_book.detail_address
           end
         end
+        binding.pry
         error! order.errors unless order.save && shopping_carts.destroy_all
+        query_parts = {
+          'appid' => ENV['WECHAT_LITE_APPID'],
+          'mch_id' => ENV['WECHAT_MCH_ID'],
+          'nonce_str' => SecureRandom.hex(13),
+          'body' => '购买商品',
+          'out_trade_no' => order.code,
+          'total_fee' => order.price,
+          'spbill_create_ip' => '127.0.0.1',
+          'trade_type' => 'JSAPI'
+        }
+        query_parts['sign'] = get_signature(query_parts)
+        # query_str = encode_parameters(query_parts)
+        # client = Faraday.new("https://api.mch.weixin.qq.com/pay/unifiedorder")
+        resp = Faraday.post("https://api.mch.weixin.qq.com/pay/unifiedorder", query_parts)
+        j = JSON.parse(resp.body)
+
         present order, with: Entities::Order
       end
       
