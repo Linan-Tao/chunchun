@@ -22,6 +22,30 @@
 
 class Order < ApplicationRecord
   belongs_to :visitor
-  has_many :order_products
-  store_accessor :features, :delivery_username, :delivery_phone, :delivery_address
+  has_many :order_products, dependent: :destroy
+  store_accessor :features, :delivery_username, :delivery_phone, :delivery_address, :pay_time
+  after_create :generate_code
+
+  STATUS = {
+    open: '未支付', #订单结算
+    pending: '支付中',
+    paid: '支付成功',
+    deliveried: '已发货',
+    completed: '完成',
+    cancelled: '取消'
+  }
+
+
+  after_initialize do
+    self.status ||= 'open'
+  end
+
+  def generate_code
+    today = Time.now.beginning_of_day
+    todayFirstOrder = self.class.where("? <= created_at", today).order(created_at: :asc).first
+    number = todayFirstOrder && self.id - todayFirstOrder.id + 1 || 1
+    raise '订单当日数量超出系统限制' if number.to_s.length > 5
+    self.update(code: "#{today.strftime('%Y%m%d')}#{number.to_s.rjust(5, '0')}")
+  end
+
 end

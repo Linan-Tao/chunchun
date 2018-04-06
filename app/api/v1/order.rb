@@ -64,7 +64,7 @@ module V1
           end
         end
         # binding.pry
-        order.code = Time.now.to_i.to_s
+        # order.code = Time.now.to_i.to_s
         error! order.errors unless order.save && shopping_carts.destroy_all
         query_parts = {
           'appid' => ENV['WECHAT_LITE_APPID'],

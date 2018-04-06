@@ -12,7 +12,7 @@
 
 class Visitor < ApplicationRecord
   attr_accessor :session_key
-  has_many :shopping_carts
-  has_many :orders
-  has_many :address_books
+  has_many :shopping_carts, dependent: :destroy
+  has_many :orders, dependent: :destroy
+  has_many :address_books, dependent: :destroy
 end
