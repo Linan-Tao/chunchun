@@ -31,6 +31,16 @@
         tip="最多上传3个图片"></p>
   </div>
 
+  <div class="row col-md-4">
+    <%= form.label :catalog %>
+    <div rel="vca"
+         role="cascader"
+         name="wxlite_setting[catalogs][]"
+         value="<%= @website_setting.catalogs %>"
+         props='{"label": "name", "value": "id", "children": "children_data"}'
+         url="http://localhost:3000/catalogs.json"></div>
+  </div> 
+
   <div class="actions">
     <%= form.submit '更新', class: 'btn btn-lg btn-success btn-block' %>
   </div>

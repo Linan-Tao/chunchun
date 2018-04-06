@@ -17,6 +17,13 @@ module V1
           present catalogs, with: Entities::Catalog, type: :all_catalog
         end
       end
+
+      desc '首页默认分类'
+      get 'common' do
+        catalogs = ::Catalog.where(id: ::WxliteSetting.first.catalogs)
+        debugger
+        present catalogs, with: Entities::Catalog, type: :all_catalog
+      end
     end
   end
 end

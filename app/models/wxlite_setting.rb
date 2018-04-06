@@ -7,7 +7,10 @@
 #  delivery_fee :integer
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  features     :jsonb
 #
 
 class WxliteSetting < ApplicationRecord
+  # catalogs 首页类型数组
+  store_accessor :features, :catalogs, :my_banner
 end

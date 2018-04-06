@@ -7,6 +7,7 @@
 #  delivery_fee :integer
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  features     :jsonb
 #
 
 require 'test_helper'
