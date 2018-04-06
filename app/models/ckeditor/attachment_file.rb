@@ -13,6 +13,10 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
+# Indexes
+#
+#  index_ckeditor_assets_on_type  (type)
+#
 
 class Ckeditor::AttachmentFile < Ckeditor::Asset
   has_attached_file :data,

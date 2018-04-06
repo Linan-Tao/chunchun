@@ -57,7 +57,23 @@ module V1
       get do
         authenticate!
         # 目前只支持一个地址
-        present current_visitor.address_books.first, with: Entities::AddressBook
+        present current_visitor.address_books, with: Entities::AddressBook
+      end
+
+      desc '获取默认地址'
+      get 'common' do
+        present current_visitor.address_books.find_by(common: true), with: Entities::AddressBook
+      end
+
+      desc '获取指定地址薄'
+      params do
+        requires :id, type: Integer, desc: '地址薄 ID'
+      end
+      get ':id' do
+        debugger
+        authenticate!
+        # 目前只支持一个地址
+        present current_visitor.address_books.find(params[:id]), with: Entities::AddressBook
       end
 
       desc '删除地址薄' do

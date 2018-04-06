@@ -9,14 +9,13 @@ class V1::Auth < V1::Base
       query[:appid] = ENV['WECHAT_LITE_APPID']
       query[:secret] = ENV['WECHAT_LITE_SECRET']
       query[:js_code] = params[:code]
-      query[:grant_type] = ENV['authorization_code']
-
+      query[:grant_type] = 'authorization_code'
       client = Faraday.new("https://api.weixin.qq.com/sns/jscode2session?#{query.to_query}")
       resp = client.get
-      j = JSON.parse(resp.body)
-      if j['openid'] && j['session_key']
-        Visitor.find_or_create_by!(uid: j['openid'])
-        encode_visitor_token openid: j['openid'], session_key: j['session_key']
+      data = JSON.parse(resp.body)
+      if data['openid'] && data['session_key']
+        Visitor.find_or_create_by!(uid: data['openid'])
+        encode_visitor_token openid: data['openid'], session_key: data['session_key']
       else
         ''
       end

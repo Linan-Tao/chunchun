@@ -13,6 +13,14 @@
 #  updated_at  :datetime         not null
 #  catalog_id  :integer
 #
+# Indexes
+#
+#  index_products_on_catalog_id  (catalog_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (catalog_id => catalogs.id)
+#
 
 require 'test_helper'
 

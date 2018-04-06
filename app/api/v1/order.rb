@@ -38,6 +38,7 @@ module V1
         optional :address_book_id, type: Integer, desc: '地址薄ID'
       end
       post do
+        debugger
         authenticate!
         order = current_visitor.orders.new
         shopping_carts = ::ShoppingCart.where(id: params[:shopping_cart_ids])
