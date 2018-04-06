@@ -6,6 +6,7 @@ import Tag from './tag'
 import ImageUpload from './image_upload'
 import Catalog from './catalog'
 import Cascader from './cascader'
+import Select from './select'
 
 function plugin(Vue) {
   if (plugin.installed) return;
@@ -16,6 +17,7 @@ function plugin(Vue) {
   VCA.add('image-upload', ImageUpload)
   VCA.add('catalog-list', Catalog)
   VCA.add('cascader', Cascader)
+  VCA.add('select', Select)
 }
 
 export default plugin

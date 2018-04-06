@@ -33,12 +33,18 @@
 
   <div class="row col-md-4">
     <%= form.label :catalog %>
-    <div rel="vca"
-         role="cascader"
-         name="wxlite_setting[catalogs][]"
-         value="<%= @website_setting.catalogs %>"
-         props='{"label": "name", "value": "id", "children": "children_data"}'
-         url="http://localhost:3000/catalogs.json"></div>
+    <span
+        rel="vca"
+        role="select"
+        name="wxlite_setting[catalogs][]"
+        value="<%= @website_setting.catalogs.join(',') if @website_setting.catalogs %>"
+        url="http://localhost:3000/catalogs.json"
+        filterable='false'
+        allow-create='false'
+        multiple='true'
+        multiple-limit='4'>
+    </span>
+
   </div> 
 
   <div class="actions">
