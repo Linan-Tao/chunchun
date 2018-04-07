@@ -5,8 +5,8 @@
   <%= link_to '返回', products_path, class: 'btn btn-warning' %>
 </h5>
 <div class='row mt-5'>
-  <div class='col'>价格: <%= @product.price %>元</div>
-  <div class='col'>卖价: <%= @product.sell_price %>元</div>
+  <div class='col'>价格: <%= @product.price.to_i/100.0 %>元</div>
+  <div class='col'>卖价: <%= @product.sell_price.to_i/100.0 %>元</div>
   <div class='col'>库存: <%= @product.stock %></div>
   <div class='col'>标签: 
     <% @product.tags.each do |tag|%>

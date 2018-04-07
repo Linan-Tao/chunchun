@@ -18,11 +18,11 @@
 
     <div class="col-md-4">
       <%= form.label :price %>
-      <%= form.text_field :price, id: :product_price, class: 'form-control' %>
+      <%= form.text_field :price, value: product.new_record? ? '' : product.price.to_i/100.0, id: :product_price, class: 'form-control' %>
     </div>
     <div class="col-md-4">
       <%= form.label :sell_price %>
-      <%= form.text_field :sell_price, id: :product_sell_price, class: 'form-control' %>
+      <%= form.text_field :sell_price, value: product.new_record? ? '' : product.sell_price.to_i/100.0, id: :product_sell_price, class: 'form-control' %>
     </div>
   </div>
   <div class="row mt-2">

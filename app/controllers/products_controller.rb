@@ -24,6 +24,7 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
+    set_product_price
     @product = Product.new(product_params)
     respond_to do |format|
       if @product.save
@@ -39,6 +40,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
+    set_product_price
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
@@ -71,5 +73,10 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(:name, :price, :images, :description, :stock, :sell_price, :content, :tag_list, :catalog_id,
                                       images: [])
+    end
+
+    def set_product_price
+      params[:product][:price] = params[:product][:price].to_f * 100
+      params[:product][:sell_price] = params[:product][:sell_price].to_f * 100
     end
 end

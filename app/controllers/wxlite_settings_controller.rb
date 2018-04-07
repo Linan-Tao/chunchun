@@ -70,6 +70,6 @@ class WxliteSettingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def wxlite_setting_params
-      params.require(:wxlite_setting).permit(:delivery_fee, banners: [], catalogs: [])
+      params.require(:wxlite_setting).permit(:delivery_fee, :my_banner, banners: [], catalogs: [])
     end
 end

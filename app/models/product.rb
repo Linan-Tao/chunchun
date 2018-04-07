@@ -27,6 +27,7 @@ class Product < ApplicationRecord
   belongs_to :catalog
   acts_as_taggable
   store_accessor :features, :sell_price, :stock
+  validates_presence_of :price, :sell_price, :name, :stock
 
   def first_image
     images ? images.first : 'http://p64xi7w31.bkt.clouddn.com/WechatIMG602.jpeg'

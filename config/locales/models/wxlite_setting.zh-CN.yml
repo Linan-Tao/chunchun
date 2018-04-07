@@ -5,8 +5,10 @@ zh-CN:
       wxlite_setting: 小程序设置
     attributes:
       wxlite_setting:
-        banners: Banner图
+        banners: 首页Banner图
         delivery_fee: 运费
+        catalogs: 首页显示的分类
+        my_banner: 我的页面Banner图
     errors:
       models:
         wxlite_setting: 
