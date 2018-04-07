@@ -2,6 +2,7 @@ module Entities
   class ProductSimple < Base
     expose_id
     expose :name, documentation: { desc: '产品名称' }
+    expose :description, documentation: { desc: '产品描述' }
     expose :price, documentation: { desc: '产品价格' }
     expose :sell_price, documentation: { desc: '产品卖价' }
     expose :stock, documentation: { desc: '产品库存' }

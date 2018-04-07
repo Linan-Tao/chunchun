@@ -20,8 +20,7 @@ module V1
 
       desc '首页默认分类'
       get 'common' do
-        catalogs = ::Catalog.where(id: ::WxliteSetting.first.catalogs)
-        debugger
+        catalogs = ::Catalog.all.limit(3)
         present catalogs, with: Entities::Catalog, type: :all_catalog
       end
     end
