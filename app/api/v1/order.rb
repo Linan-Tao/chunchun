@@ -1,6 +1,33 @@
 module V1
   class Order < Base
     helpers SharedParams
+
+    helpers do
+      def weixin_charge(order)
+        query_parts = {
+          'appid' => ENV['WECHAT_LITE_APPID'],
+          'mch_id' => ENV['WECHAT_MCH_ID'],
+          'nonce_str' => SecureRandom.hex(13),
+          'body' => '购买商品',
+          'out_trade_no' => order.code,
+          'total_fee' => order.price,
+          'spbill_create_ip' => '127.0.0.1',
+          'trade_type' => 'JSAPI',
+          'notify_url' => ENV['SITE_HOST'],
+          'openid' => current_visitor.uid
+        }
+        query_parts['sign'] = get_signature(query_parts)
+        query_parts = query_parts.to_json
+        xml_query = ActiveSupport::JSON.decode(query_parts).to_xml(root: 'xml', dasherize: false)
+        resp = Faraday.post('https://api.mch.weixin.qq.com/pay/unifiedorder', xml_query)
+        # query_str = encode_parameters(query_parts)
+        # client = Faraday.new("https://api.mch.weixin.qq.com/pay/unifiedorder")
+        # j = JSON.parse(resp.body)
+        prepay = Hash.from_xml(resp.body)
+        prepay['xml'].merge(id: order.id)  
+      end
+    end
+
     resources :orders do
       desc '订单列表' do
         success Entities::OrderSimple
@@ -65,49 +92,37 @@ module V1
         # binding.pry
         # order.code = Time.now.to_i.to_s
         error! order.errors unless order.save && shopping_carts.destroy_all
-        query_parts = {
-          'appid' => ENV['WECHAT_LITE_APPID'],
-          'mch_id' => ENV['WECHAT_MCH_ID'],
-          'nonce_str' => SecureRandom.hex(13),
-          'body' => '购买商品',
-          'out_trade_no' => order.code,
-          'total_fee' => order.price,
-          'spbill_create_ip' => '127.0.0.1',
-          'trade_type' => 'JSAPI',
-          'notify_url' => ENV['SITE_HOST'],
-          'openid' => current_visitor.uid
-        }
-        query_parts['sign'] = get_signature(query_parts)
-        query_parts = query_parts.to_json
-        xml_query = ActiveSupport::JSON.decode(query_parts).to_xml(root: 'xml', dasherize: false)
-        resp = Faraday.post('https://api.mch.weixin.qq.com/pay/unifiedorder', xml_query)
-        # query_str = encode_parameters(query_parts)
-        # client = Faraday.new("https://api.mch.weixin.qq.com/pay/unifiedorder")
-        # j = JSON.parse(resp.body)
-        prepay = Hash.from_xml(resp.body)
+        # query_parts = {
+        #   'appid' => ENV['WECHAT_LITE_APPID'],
+        #   'mch_id' => ENV['WECHAT_MCH_ID'],
+        #   'nonce_str' => SecureRandom.hex(13),
+        #   'body' => '购买商品',
+        #   'out_trade_no' => order.code,
+        #   'total_fee' => order.price,
+        #   'spbill_create_ip' => '127.0.0.1',
+        #   'trade_type' => 'JSAPI',
+        #   'notify_url' => ENV['SITE_HOST'],
+        #   'openid' => current_visitor.uid
+        # }
+        # query_parts['sign'] = get_signature(query_parts)
+        # query_parts = query_parts.to_json
+        # xml_query = ActiveSupport::JSON.decode(query_parts).to_xml(root: 'xml', dasherize: false)
+        # resp = Faraday.post('https://api.mch.weixin.qq.com/pay/unifiedorder', xml_query)
+        # prepay = Hash.from_xml(resp.body)
 
-        present prepay['xml']
+        present weixin_charge(order)
       end
 
       desc '创建订单的charge'
       params do
         requires :id, type: Integer, desc: '订单ID'
-        requires :channel, type: String, desc: '支付通道'
       end
       post ':id/charge' do
         authenticate!
         order = current_visitor.orders.find_by(id: params[:id])
         case order.status
-        when 'confirm'
-          charge = PaymentCore.create_charge(
-            order_no: order.code,
-            channel: params[:channel],
-            amount: order.worker_pay_price,
-            client_ip: env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR'],
-            subject: "#{current_visitor.name}师傅支付给平台",
-            body: "#{current_visitor.name}师傅支付给平台,订单号#{order.code}"
-          )
-          present charge: charge
+        when 'open'
+          present weixin_charge(order)
         when 'paid'
           error! '请勿重复支付！'
         else

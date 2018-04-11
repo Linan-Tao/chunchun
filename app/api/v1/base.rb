@@ -7,5 +7,6 @@ module V1
     mount V1::ShoppingCart
     mount V1::AddressBook
     mount V1::Order
+    mount V1::WxliteSetting
   end
 end

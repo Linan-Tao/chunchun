@@ -12,7 +12,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-6 text-left">
-            <h5 class="card-title text-danger"><%= product.sell_price.present? ? product.sell_price : product.price %>元</h5>
+            <h5 class="card-title text-danger"><%= product.sell_price.to_i/100.0 %>元</h5>
           </div>
           <div class="col-6 text-right">
             <h5 class="card-title"><h6 class="card-subtitle text-muted"><span class="badge badge-danger"><%= product.catalog.full_name %></span></h6></h5>

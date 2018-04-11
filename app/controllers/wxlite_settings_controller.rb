@@ -25,6 +25,7 @@ class WxliteSettingsController < ApplicationController
   # POST /wxlite_settings
   # POST /wxlite_settings.json
   def create
+    set_catalogs
     @wxlite_setting = WxliteSetting.new(wxlite_setting_params)
     respond_to do |format|
       if @wxlite_setting.save
@@ -40,6 +41,7 @@ class WxliteSettingsController < ApplicationController
   # PATCH/PUT /wxlite_settings/1
   # PATCH/PUT /wxlite_settings/1.json
   def update
+    set_catalogs
     respond_to do |format|
       if @wxlite_setting.update(wxlite_setting_params)
         format.html { redirect_to wxlite_settings_path, notice: 'Wxlite setting was successfully updated.' }
@@ -71,5 +73,9 @@ class WxliteSettingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def wxlite_setting_params
       params.require(:wxlite_setting).permit(:delivery_fee, :my_banner, banners: [], catalogs: [])
+    end
+
+    def set_catalogs
+      params[:wxlite_setting][:catalogs] = params[:wxlite_setting][:catalogs].split(',')
     end
 end
