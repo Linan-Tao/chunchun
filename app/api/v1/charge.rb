@@ -5,7 +5,7 @@ module V1
 
     # end
 
-    get do
+    get 'pay' do
       binding.pry
     end
   end
