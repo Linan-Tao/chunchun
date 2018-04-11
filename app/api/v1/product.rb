@@ -19,6 +19,7 @@ module V1
         else
           products = ::Product.all
         end
+        products = products.where(is_deleted: false)
         products = products.where('name ILIKE :key', key: "%#{params[:keywords]}%") if params[:keywords]
         products = paginate_collection(products, params)
         wrap_collection products, Entities::ProductSimple

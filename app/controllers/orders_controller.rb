@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :confirm]
 
   # GET /orders
   # GET /orders.json
@@ -34,6 +34,12 @@ class OrdersController < ApplicationController
       format.html { redirect_to orders_url, notice: 'order was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def confirm
+    @order.status = 'deliveried'
+    @order.save!
+    redirect_to order_url(@order)
   end
 
   private

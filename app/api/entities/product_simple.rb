@@ -9,6 +9,7 @@ module Entities
     expose :tag_list, documentation: { desc: '产品标签' }
     expose :first_image, documentation: { desc: '产品主图' }
     expose :images, documentation: { desc: '产品图片' }
+    expose :is_deleted, documentation: { desc: '是否删除' }
     expose :catalog, using: Entities::Catalog, documentation: { desc: '产品分类' }
 
     def display_price

@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all.order('updated_at DESC').page(params[:page])
+    @products = Product.where(is_deleted: false).order('updated_at DESC').page(params[:page])
   end
 
   # GET /products/1
@@ -55,7 +55,8 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
-    @product.destroy
+    # @product.destroy
+    @product.update(is_deleted: true)
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }

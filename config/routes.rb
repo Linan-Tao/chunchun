@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   resources :wxlite_settings
-  resources :orders
+  resources :orders, only: [:index, :show] do
+    member do
+      put 'confirm'
+    end
+  end
+
   resources :visitors
   mount Ckeditor::Engine => '/ckeditor'
   resources :products

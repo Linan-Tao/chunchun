@@ -23,6 +23,7 @@
 class Order < ApplicationRecord
   belongs_to :visitor
   has_many :order_products, dependent: :destroy
+  has_many :products, through: :order_products
   store_accessor :features, :delivery_username, :delivery_phone, :delivery_address, :pay_time
   after_create :generate_code
 

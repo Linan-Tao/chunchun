@@ -12,6 +12,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  catalog_id  :integer
+#  is_deleted  :boolean          default(FALSE)
 #
 # Indexes
 #

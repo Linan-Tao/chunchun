@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+<h5>
+  <%= @order.code %><span class="badge badge-danger"><%= Order::STATUS[@order.status.to_sym] %></span>
+  <%= link_to '确认发货', confirm_order_path(@order), method: :put, class: 'btn btn-danger' if @order.status == 'paid' %>
+  <%= link_to '返回', orders_path, class: 'btn btn-warning' %>
+</h5>
+<div class='row mt-5'>
+  <div class='col'>价格: <%= @order.price.to_i/100.0 %>元</div>
+  <div class='col'>收货人: <%= @order.delivery_username %></div>
+  <div class='col'>收货地址: <%= @order.delivery_address %></div>
+  <div class='col'>联系电话: <%= @order.delivery_phone %></div>
+</div>
+<div class='row mt-5 ml-1'>
+  <p>购买产品:</p>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">产品图片</th>
+        <th scope="col">产品名称</th>
+        <th scope="col">产品价格</th>
+        <th scope="col">购买数量</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order.order_products.each do |order_product|%>
+        <tr>
+          <th><%= image_tag order_product.product.first_image, width: '100px'%></th>
+          <td><%= link_to order_product.product.name, product_path(order_product.product) %></td>
+          <td><%= order_product.product.sell_price/100.0%></td>
+          <td><%= order_product.amount%></td>
+        </tr>
+       <% end %>
+    </tbody>
+  </table>
+</div>
+
+
