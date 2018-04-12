@@ -39,7 +39,7 @@ module V1
       end
       get do
         authenticate!
-        orders = current_visitor.orders
+        orders = current_visitor.orders.order("updated_at DESC")
         orders = orders.where(status: params[:status]) if params[:status]
         orders = paginate_collection(orders, params)
         wrap_collection orders, Entities::OrderSimple
