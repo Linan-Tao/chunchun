@@ -33,7 +33,7 @@ class Order < ApplicationRecord
     paid: '支付成功',
     deliveried: '已发货',
     completed: '完成',
-    cancelled: '取消'
+    cancelled: '已取消'
   }
 
 

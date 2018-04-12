@@ -129,6 +129,18 @@ module V1
           error! '支付失败！'
         end
       end
+
+      desc '取消订单'
+      params do
+        requires :id, type: Integer, desc: '订单ID'
+      end
+      post ':id/cancel' do
+        authenticate!
+        order = current_visitor.orders.find_by(id: params[:id])
+        order.status = 'cancelled'
+        order.save
+        present order
+      end
     end
   end
 end
