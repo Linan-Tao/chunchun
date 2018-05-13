@@ -13,7 +13,7 @@ module V1
           'total_fee' => order.price,
           'spbill_create_ip' => '127.0.0.1',
           'trade_type' => 'JSAPI',
-          'notify_url' => ENV['SITE_HOST']+'/api/v1/pay',
+          'notify_url' => ENV['SITE_HOST']+'/pay',
           'openid' => current_visitor.uid
         }
         query_parts['sign'] = get_signature(query_parts)

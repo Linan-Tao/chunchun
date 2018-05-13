@@ -8,6 +8,6 @@ module V1
     mount V1::AddressBook
     mount V1::Order
     mount V1::WxliteSetting
-    mount V1::Charge
+    # mount V1::Charge
   end
 end
