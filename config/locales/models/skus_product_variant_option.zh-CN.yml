@@ -1,0 +1,15 @@
+---
+zh-CN:
+  activerecord:
+    models:
+      skus_product_variant_option: Skus product variant option
+    attributes:
+      skus_product_variant_option:
+        sku: Sku
+        product_variant: Product variant
+        product_variant_option: Product variant option
+    errors:
+      models:
+        skus_product_variant_option: 
+  helpers:
+    skus_product_variant_option: 

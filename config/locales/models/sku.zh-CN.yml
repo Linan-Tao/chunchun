@@ -1,0 +1,16 @@
+---
+zh-CN:
+  activerecord:
+    models:
+      sku: Sku
+    attributes:
+      sku:
+        product: Product
+        sku: Sku
+        price: Price
+        total: Total
+    errors:
+      models:
+        sku: 
+  helpers:
+    sku: 

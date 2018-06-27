@@ -1,0 +1,14 @@
+---
+zh-CN:
+  activerecord:
+    models:
+      product_variant: Product variant
+    attributes:
+      product_variant:
+        product: Product
+        name: Name
+    errors:
+      models:
+        product_variant: 
+  helpers:
+    product_variant: 
